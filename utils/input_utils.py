@@ -1,6 +1,6 @@
 import re
 
-def inputNumber(texte):
+def input_number(texte):
     right = False
     entry = None
     while not right:
@@ -12,20 +12,20 @@ def inputNumber(texte):
             pass
     return entry
 
-def inputNumberRange(texte, start, stop):
+def input_number_range(texte, start, stop):
     right = False
     entry = None
     while not right:
-        entry = inputNumber(texte)
+        entry = input_number(texte)
         if entry in range(start, stop):
             right = True
     return entry
 
-def inputPositive(texte):
+def input_positive(texte):
     right = False
     entry = None
     while not right:
-        entry = inputNumber(texte)
+        entry = input_number(texte)
         if entry > 0:
             right = True
     return entry

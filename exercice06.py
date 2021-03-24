@@ -2,7 +2,6 @@ import math
 
 def factorial(number):
 
-
     # Recursive
     # facto = 1 if abs(number) == 1 else (abs(number) * factorial(abs(number) - 1))
     # return facto if number >= 0 else facto * -1

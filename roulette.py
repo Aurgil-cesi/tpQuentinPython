@@ -1,5 +1,5 @@
 import random
-from utils.input_utils import inputNumberRange, inputPositive
+from utils.input_utils import input_number_range, input_positive
 
 def roulette(numero, somme):
     gagnant = random.randrange(0, 50)
@@ -7,8 +7,8 @@ def roulette(numero, somme):
     return (gagnant, somme * 3 if gagnant == numero else somme * 0.5 if gagnant % 2 == numero % 2 else 0)
 
 def run():
-    numero = inputNumberRange("Votre numéro (1 - 50) : ", 1, 51)
-    somme = inputPositive("La somme misée : ")
+    numero = input_number_range("Votre numéro (1 - 50) : ", 1, 51)
+    somme = input_positive("La somme misée : ")
 
     resultat = roulette(numero, somme)
 
