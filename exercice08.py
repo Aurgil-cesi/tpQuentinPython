@@ -1,10 +1,9 @@
+import re
+
 def get_word_count(sentence):
-       # Votre code ici
-       return
+    return len(re.findall("[a-zA-Z]+", sentence))
+    # return len(list(filter(lambda i: i.isalpha(), [word for word in sentence.split(" ")])))
 
 def run():
-   assert get_word_count("Bonjour") == 1
-   assert get_word_count("Bonjour toi") == 2
-   assert get_word_count("Bonjour ca va ?") == 3
-   assert get_word_count("Bonjour ca va toi ?!") == 4
-   assert get_word_count("") == 0
+    for test in [("Bonjour", 1), ("Bonjour toi", 2), ("Bonjour ca va ?", 3), ("Bonjour ca va toi ?!", 4), ("", 0)]:
+        assert get_word_count(test[0]) == test[1]

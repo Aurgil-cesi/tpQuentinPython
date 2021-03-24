@@ -1,10 +1,9 @@
+import re
+
 def get_letter_count(word):
-       # Votre code ici
-       return
+    return len(re.findall("[a-zA-Z]", word))
+    # return len(list(filter(lambda i: i.isalpha(), [l for l in word])))
 
 def run():
-   assert get_letter_count("Oui") == 3
-   assert get_letter_count("Bonjour") == 7
-   assert get_letter_count("") == 0
-   assert get_letter_count(".........hein???") == 4
-   assert get_letter_count("Attention y'a quatre mots !") == 21
+    for test in [("Oui", 3), ("Bonjour", 7), ("", 0), (".........hein???", 4), ("Attention y'a quatre mots !", 21)]:
+        assert get_letter_count(test[0]) == test[1]

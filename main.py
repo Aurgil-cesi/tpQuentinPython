@@ -1,29 +1,8 @@
-import exercice01
-import exercice02
-import exercice03
-import exercice04
-import exercice05
-import exercice06
-import exercice07
-import exercice08
+exercises = list(map(__import__, [f"exercice0{num}" for num in range(1, 9)]))
 
-all_exercises = [
-    exercice01.run, 
-    exercice02.run, 
-    exercice03.run,
-    exercice04.run,
-    exercice05.run,
-    exercice06.run,
-    exercice07.run,
-    exercice08.run,
-]
-
-i = 1
-for exercise in all_exercises:
+for i in range(len(exercises)):
     try:
-        exercise()
-        print(f"✅ Exercice {i} : passé")
+        exercises[i].run()
+        print(f"✅ Exercice {i + 1} : passé")
     except AssertionError:
-        print(f"❌ Exercice {i} : raté")
-    finally:
-        i += 1
+        print(f"❌ Exercice {i + 1} : raté")
