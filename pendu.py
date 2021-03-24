@@ -12,13 +12,7 @@ words = [
 ]
 
 def hidden(word, letters):
-    trans = ""
-    for l in word:
-        if l.upper() not in letters:
-            trans = trans + "*"
-        else:
-            trans = trans + l
-    return trans
+    return "".join(list(map(lambda l: "*" if l.upper() not in letters else l, word)))
 
 def run():
     word = words[random.randrange(0, len(words))]
