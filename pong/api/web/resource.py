@@ -1,9 +1,9 @@
 class Resource:
-    db = None
     server = None
 
-    def __init__(self):
-        if(Resource.db == None or Resource.server == None):
+    def __init__(self, service):
+        if(Resource.server == None):
             raise ValueError()
-        self.db = Resource.db
         self.server = Resource.server
+        self.service = service
+        self.modelClass = self.service.modelClass

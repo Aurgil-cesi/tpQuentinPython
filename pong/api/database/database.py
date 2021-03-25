@@ -26,7 +26,6 @@ class Database:
         sql_commands = sql.split(";")
 
         for sql_command in sql_commands:
-            print(sql_command)
             cursor.execute(sql_command)
 
         connection.commit()
