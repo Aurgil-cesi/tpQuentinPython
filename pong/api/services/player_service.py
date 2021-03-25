@@ -2,8 +2,8 @@ from .service import Service
 
 class Player_service(Service):
 
-    def __init__(self, modelClass, repository):
-        super(Player_service, self).__init__(modelClass, repository)
+    def __init__(self, repository):
+        super(Player_service, self).__init__(repository = repository, modelname = "player")
 
     def all(self):
         rows = self.repository.all()

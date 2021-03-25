@@ -16,6 +16,16 @@ class Game_resource(Resource):
             mimetype = "application/json"
         )
 
+    def allWithPlayers(self):
+
+        games = self.service.allWithPlayers()
+
+        return self.server.response_class(
+            response = self.modelClass.toJsons(games),
+            status = 200,
+            mimetype = "application/json"
+        )
+
     def one(self, id):
         
         game = self.service.one(id)
