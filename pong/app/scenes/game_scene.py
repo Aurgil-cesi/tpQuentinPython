@@ -2,11 +2,12 @@ import pygame
 from balle import Balle
 from barre import Barre
 from direction import Direction
+from .scene import Scene
 
-class Game_scene:
+class Game_scene(Scene):
 
     def __init__(self, screen):
-        self.screen = screen
+        super(Game_scene, self).__init__(screen)
 
         screen_size = self.screen.get_size()
         self.balle = Balle(self.screen, (screen_size[0] / 2, screen_size[1] / 2), speed = 0.2)

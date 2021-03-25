@@ -1,0 +1,1 @@
+all = ["game_scene", "menu_scene"]
