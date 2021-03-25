@@ -3,7 +3,7 @@ from os import path
 
 class Database:
 
-    def __init__(self, host = "localhost", user = "root", password = "root", database_name = "pypong"):
+    def __init__(self, host, user, password, database_name):
 
         self.db = mysql.connector.connect(
             host = host,

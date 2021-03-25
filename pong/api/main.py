@@ -2,6 +2,7 @@ from flask import Flask
 from web.resource import Resource
 from services.service import Service
 from constants import app, database
+from configuration import SERVEUR_HOST, SERVEUR_PORT, SERVEUR_DEBUG
 
 # Initialisation statiques
 Service.db = database
@@ -13,4 +14,4 @@ import game_routes
 
 # Start
 if __name__ == "__main__":
-    app.run(host = "0.0.0.0", port = 5002, debug = True)
+    app.run(host = SERVEUR_HOST, port = SERVEUR_PORT, debug = SERVEUR_DEBUG)
