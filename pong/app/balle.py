@@ -12,7 +12,6 @@ class Balle(Circle):
         self.dieLeftEvent = pygame.event.Event(pygame.USEREVENT, {"data": "left"});
         self.dieRightEvent = pygame.event.Event(pygame.USEREVENT, {"data": "right"});
 
-
     def update(self):
 
         (x, y) = self.coords
