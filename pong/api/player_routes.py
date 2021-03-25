@@ -4,9 +4,10 @@ from constants import app
 from web.player_resource import Player_resource
 from services.player_service import Player_service
 from models.player_model import Player_model
+from repositories.player_repository import Player_repository
 
 # Initialisation de la ressource
-player_res = Player_resource(Player_service(Player_model))
+player_res = Player_resource(Player_service(Player_model, Player_repository()))
 
 # Les routes
 @app.route("/players", methods=["POST", "GET"])

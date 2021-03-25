@@ -1,11 +1,11 @@
 from flask import Flask
 from web.resource import Resource
-from services.service import Service
+from repositories.repository import Repository
 from constants import app, database
 from configuration import SERVEUR_HOST, SERVEUR_PORT, SERVEUR_DEBUG
 
 # Initialisation statiques
-Service.db = database
+Repository.db = database
 Resource.server = app
 
 # Ajout des routes

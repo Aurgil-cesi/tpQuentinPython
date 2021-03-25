@@ -2,13 +2,11 @@ from .service import Service
 
 class Game_service(Service):
 
-    def __init__(self, modelClass):
-        super(Game_service, self).__init__(modelClass)
+    def __init__(self, modelClass, repository):
+        super(Game_service, self).__init__(modelClass, repository)
 
     def all(self):
-
-        self.cursor.execute(f"select id, name from game")
-        rows = self.cursor.fetchall()
+        rows = self.repository.all()
 
         games = list(map(lambda row: self.modelClass(
             id = row[0],
@@ -18,9 +16,7 @@ class Game_service(Service):
         return games
 
     def one(self, id):
-
-        self.cursor.execute(f"select id, name from game where id = '{id}'")
-        row = self.cursor.fetchone()
+        row = self.repository.one(id)
 
         if(row):
             return self.modelClass(
@@ -31,6 +27,4 @@ class Game_service(Service):
             return None
 
     def create(self, game):
-
-        self.cursor.execute(f"insert into game (name) values ('{game.name}')")
-        self.connection.commit()
+        self.repository.create(game)

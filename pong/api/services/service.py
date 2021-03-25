@@ -1,9 +1,5 @@
 class Service:
-    db = None
 
-    def __init__(self, modelClass):
-        if(Service.db == None):
-            raise ValueError()
-        self.db = Service.db
+    def __init__(self, modelClass, repository):
         self.modelClass = modelClass
-        (self.connection, self.cursor) = self.db.connect()
+        self.repository = repository
