@@ -1,15 +1,16 @@
 from rectangle import Rectangle
+from direction import Direction
 import pygame
 
 class Barre(Rectangle):
 
     def __init__(self, 
         screen, coords = (0, 0), size = (32, 64), speed = 1, 
-        controls = {"up": pygame.K_z, "down": pygame.K_s}
+        controls = {Direction.UP: pygame.K_z, Direction.DOWN: pygame.K_s}
     ):
         super().__init__(screen, coords, size, speed)
 
-        self.direction = "down"
+        self.direction = Direction.DOWN
         self.controls = controls
 
     def update(self):
@@ -18,7 +19,7 @@ class Barre(Rectangle):
 
     def events(self):
         keys = pygame.key.get_pressed()
-        if keys[self.controls["up"]]:
-            self.move("up")
-        elif keys[self.controls["down"]]:
-            self.move("down")
+        if keys[self.controls[Direction.UP]]:
+            self.move(Direction.UP)
+        elif keys[self.controls[Direction.DOWN]]:
+            self.move(Direction.DOWN)

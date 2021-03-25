@@ -1,6 +1,7 @@
 import pygame
 from balle import Balle
 from barre import Barre
+from direction import Direction
 
 class Game:
 
@@ -13,7 +14,7 @@ class Game:
         self.screen = pygame.display.set_mode(screen_size)
 
         self.balle = Balle(self.screen, (screen_size[0] / 2, screen_size[1] / 2), speed = 0.2)
-        self.balle.direction = "down_right"
+        self.balle.direction = Direction.DOWN_RIGHT
 
         barre_size = (5, 64)
         self.barres = (
@@ -22,7 +23,7 @@ class Game:
                 self.screen, 
                 coords = (screen_size[0] - barre_size[0], screen_size[1] - barre_size[1]), 
                 size = barre_size,
-                controls = {"up": pygame.K_o, "down": pygame.K_l},
+                controls = {Direction.UP: pygame.K_o, Direction.DOWN: pygame.K_l},
                 speed = 0.5
             )
         )
@@ -59,18 +60,18 @@ class Game:
             
             if(balleRect.colliderect(barreRect)):
                 if idx == 0:
-                    if(self.balle.direction == "left"):
-                        self.balle.direction = "right"
-                    elif self.balle.direction == "down_left":
-                        self.balle.direction = "down_right"
-                    elif self.balle.direction == "up_left":
-                        self.balle.direction = "up_right"
+                    if(self.balle.direction == Direction.LEFT):
+                        self.balle.direction = Direction.RIGHT
+                    elif self.balle.direction == Direction.DOWN_LEFT:
+                        self.balle.direction = Direction.DOWN_RIGHT
+                    elif self.balle.direction == Direction.UP_LEFT:
+                        self.balle.direction = Direction.UP_RIGHT
                 elif idx == 1:
-                    if self.balle.direction == "right":
-                        self.balle.direction = "left"
-                    elif self.balle.direction == "up_right":
-                        self.balle.direction = "up_left"
-                    elif self.balle.direction == "down_right":
-                        self.balle.direction = "down_left"
+                    if self.balle.direction == Direction.RIGHT:
+                        self.balle.direction = Direction.LEFT
+                    elif self.balle.direction == Direction.UP_RIGHT:
+                        self.balle.direction = Direction.UP_LEFT
+                    elif self.balle.direction == Direction.DOWN_RIGHT:
+                        self.balle.direction = Direction.DOWN_LEFT
 
-                self.balle.speed *= 1.05
+                self.balle.speed += 0.01
