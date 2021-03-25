@@ -1,32 +1,25 @@
-from pygame import draw
+import pygame
+from entity import Entity
 
-class Rectangle:
+class Rectangle(Entity):
 
-    def __init__(self, screen, coords = (0, 0), size = (32, 64), move_size = 1):
+    def __init__(self, screen, coords = (0, 0), size = (32, 64), speed = 1):
         
-        self.coords = coords
+        super(Rectangle, self).__init__(coords, speed)
         self.size = size
         self.screen = screen
-        self.move_size = move_size
 
     def update(self):
-        draw.rect(
+        pygame.draw.rect(
             self.screen,
             (255, 255, 255),
             (self.coords[0], self.coords[1], self.size[0], self.size[1])
         )
 
     def move(self, direction):
-        (x, y), (w, h) = self.coords, self.size
-        if direction == "left":
-            x -= self.move_size
-        elif direction == "right":
-            x += self.move_size
-        elif direction == "up":
-            y -= self.move_size
-        elif direction == "down":
-            y += self.move_size
+        super(Rectangle, self).move(direction)
 
+        (x, y), (w, h) = self.coords, self.size
         (screen_size_x, screen_size_y) = self.screen.get_size()
         if(x < 0):
             x = 0

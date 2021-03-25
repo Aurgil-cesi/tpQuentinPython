@@ -1,33 +1,27 @@
-from pygame import draw
+import pygame
+from entity import Entity
 
-class Circle:
+class Circle(Entity):
 
-    def __init__(self, screen, coords = (0, 0), move_size = 1):
+    def __init__(self, screen, coords = (0, 0), speed = 1, size = 15):
         
         # x, y
+        super(Circle, self).__init__(coords, speed)
         self.screen = screen
-        self.coords = coords
-        self.move_size = move_size
+        self.size = size
 
     def update(self):
-        draw.circle(
+        pygame.draw.circle(
             self.screen,
             (255, 255, 255),
             self.coords,
-            15
+            self.size
         )
 
     def move(self, direction):
-        (x, y) = self.coords
-        if direction == "left":
-            x -= self.move_size
-        elif direction == "right":
-            x += self.move_size
-        elif direction == "up":
-            y -= self.move_size
-        elif direction == "down":
-            y += self.move_size
+        super(Circle, self).move(direction)
 
+        (x, y) = self.coords
         (screen_size_x, screen_size_y) = self.screen.get_size()
         if(x < 0):
             x = 0
