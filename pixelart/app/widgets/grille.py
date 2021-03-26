@@ -4,40 +4,28 @@ from rect import Rect
 import random
 from models.cell_model import Cell_model
 
-class Grille:
-    RELOAD = 200
+class Grille(Rect):
+    RELOAD = 500
 
     def __init__(self, game, size_grille, size_cell, coords = (0, 0)):
-        self.game = game
-        self.screen = self.game.screen
+        super(Grille, self).__init__(game, coords = coords, size = (size_grille[0] * size_cell[0], size_grille[1] * size_cell[1]))
+        self.size_grille = size_grille
+        self.size_cell = size_cell
 
+        self.queues = []
         self.cells = []
-        for x in range(size_grille[0]):
-
-            rows = []
-
-            for y in range(size_grille[1]):
-                
-                cell = Cell(self.game, 
-                    coords = (
-                        coords[0] + size_cell[0] * x, coords[1] + size_cell[1] * y
-                    ), 
-                    size = size_cell,
-                    loc = (x, y)
-                )
-
-                rows.append(cell)
-
-            self.cells.append(rows)
+        
+        self.reload()
 
         self.current_reload = 0
 
     def update(self, evts):
 
+        # print(self.current_reload)
+
         if(self.current_reload == Grille.RELOAD):
             print("Reload")
-            cells_data = Cell_model.all()
-            print(cells_data)
+            self.reload()
             self.current_reload = 0
         else:
             cells_data = None
@@ -46,27 +34,36 @@ class Grille:
         self.process_events(evts)
 
         # Mise à jour des éléments de la grille
-        for rows in self.cells:
-            for cell in rows:
+        for cell in self.cells:
 
-                if cells_data:
-                    cell_data = list(filter(lambda c: c.x == cell.loc[0] and c.y == cell.loc[1], cells_data))
+            # Mise à jour de la cellule
+            cell.update(evts)
 
-                    if(cell_data):
-                        cell.color = cell_data[0].color
-
-                # Mise à jour de la cellule
-                cell.update(evts)
-
-                # Affichage de la cellule
-                pygame.draw.rect(
-                    self.screen,
-                    cell.color.value,
-                    # (random.randrange(256), random.randrange(256), random.randrange(256)),
-                    cell
-                )
+            # Affichage de la cellule
+            pygame.draw.rect(
+                self.screen,
+                cell.color.value,
+                # (random.randrange(256), random.randrange(256), random.randrange(256)),
+                cell
+            )
 
         self.current_reload += 1
+
+    def reload(self):
+
+        # Gestion de la queue
+        for cell_model in self.queues:
+            Cell_model.update(cell_model)
+        self.queues = []
+
+        self.cells = []
+        for cell in Cell_model.all():
+            self.cells.append(Cell(
+                self.game,
+                coords = (self.coords[0] + self.size_cell[0] * cell.x, self.coords[1] + self.size_cell[1] * cell.y),
+                size = self.size_cell,
+                loc = (cell.x, cell.y)
+            ))
 
     def process_events(self, evts):
         
@@ -90,3 +87,30 @@ class Grille:
                     Cell.COLOR_CHOOSEN = 1
                 elif evt.key == 57:
                     Cell.COLOR_CHOOSEN = 1
+
+            if evt.type == pygame.MOUSEBUTTONDOWN:
+                pos = pygame.mouse.get_pos()
+
+                cell_x = int(pos[0] / self.size_cell[0])
+                cell_y = int(pos[1] / self.size_cell[1])
+
+                new_cell = None
+                for cell in self.cells:
+                    if cell.loc == (cell_x, cell_y):
+                        cell.color = Cell.COLOR_CHOOSEN
+                    else:
+                        new_cell = Cell(
+                            self.game,
+                            coords = (self.coords[0] + self.size_cell[0] * cell_x, self.coords[1] + self.size_cell[1] * cell_y),
+                            size = self.size_cell,
+                            loc = (cell_x, cell_y)
+                        )
+                        
+                if new_cell:
+                    self.cells.append(new_cell)
+
+                self.queues.append(Cell_model(
+                    x = cell_x,
+                    y = cell_y,
+                    color = cell.color_index
+                ))

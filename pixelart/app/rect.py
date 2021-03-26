@@ -7,3 +7,4 @@ class Rect(pygame.Rect):
 
         self.game = game
         self.screen = self.game.screen
+        self.coords = coords
