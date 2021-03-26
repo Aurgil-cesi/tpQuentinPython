@@ -1,6 +1,7 @@
 import pygame
 from rect import Rect
 from colors import Colors
+from models.cell_model import Cell_model
 
 class Cell(Rect):
 
@@ -10,10 +11,11 @@ class Cell(Rect):
         Colors.BLACK
     ]
 
-    def __init__(self, game, coords, size):
+    def __init__(self, game, coords, size, loc):
         super(Cell, self).__init__(game, coords, size)
 
         self._color = Colors.BLACK
+        self.loc = loc
 
     @property
     def color(self):
@@ -37,5 +39,8 @@ class Cell(Rect):
 
                 if(self.collidepoint(pos)):
                     self.color = Cell.COLOR_CHOOSEN
-
-        # self.color = Cell.COLOR_CHOOSEN
+                    Cell_model.update(Cell_model(
+                        x = self.loc[0],
+                        y = self.loc[1],
+                        color = Cell.COLOR_CHOOSEN
+                    ))

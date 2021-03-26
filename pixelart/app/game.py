@@ -24,6 +24,7 @@ class Game:
             self.update()
         
     def update(self):
+
         evts = pygame.event.get()
 
         self.screen.fill((255, 255, 255))
@@ -33,7 +34,7 @@ class Game:
         self.scene.update(evts)
         pygame.display.update()
 
-        self.clock.tick(5)
+        self.clock.tick(60)
 
     def process_events(self, evts):
         for evt in evts:

@@ -2,8 +2,10 @@ import pygame
 from widgets.cell import Cell
 from rect import Rect
 import random
+from models.cell_model import Cell_model
 
 class Grille:
+    RELOAD = 200
 
     def __init__(self, game, size_grille, size_cell, coords = (0, 0)):
         self.game = game
@@ -16,15 +18,29 @@ class Grille:
 
             for y in range(size_grille[1]):
                 
-                rows.append(Cell(self.game, (
-                    coords[0] + size_cell[0] * x, coords[1] + size_cell[1] * y
-                ), size_cell))
+                cell = Cell(self.game, 
+                    coords = (
+                        coords[0] + size_cell[0] * x, coords[1] + size_cell[1] * y
+                    ), 
+                    size = size_cell,
+                    loc = (x, y)
+                )
+
+                rows.append(cell)
 
             self.cells.append(rows)
 
+        self.current_reload = 0
+
     def update(self, evts):
 
-        print("Test")
+        if(self.current_reload == Grille.RELOAD):
+            print("Reload")
+            cells_data = Cell_model.all()
+            print(cells_data)
+            self.current_reload = 0
+        else:
+            cells_data = None
 
         # Gestion des événements
         self.process_events(evts)
@@ -32,6 +48,12 @@ class Grille:
         # Mise à jour des éléments de la grille
         for rows in self.cells:
             for cell in rows:
+
+                if cells_data:
+                    cell_data = list(filter(lambda c: c.x == cell.loc[0] and c.y == cell.loc[1], cells_data))
+
+                    if(cell_data):
+                        cell.color = cell_data[0].color
 
                 # Mise à jour de la cellule
                 cell.update(evts)
@@ -43,6 +65,8 @@ class Grille:
                     # (random.randrange(256), random.randrange(256), random.randrange(256)),
                     cell
                 )
+
+        self.current_reload += 1
 
     def process_events(self, evts):
         
