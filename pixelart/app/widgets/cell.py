@@ -8,14 +8,21 @@ class Cell(Rect):
     COLOR_CHOOSEN = 0
     COLORS_LIST = [
         Colors.WHITE,
-        Colors.BLACK
+        Colors.BLACK,
+        Colors.RED,
+        Colors.GREEN,
+        Colors.BLUE,
+        Colors.PINK,
+        Colors.ORANGE,
+        Colors.YELLOW,
+        Colors.PURPLE,
+        Colors.GRAY
     ]
 
-    def __init__(self, game, coords, size, loc):
+    def __init__(self, game, coords, size, loc, color = Colors.BLACK):
         super(Cell, self).__init__(game, coords, size)
 
-        self._color = Colors.BLACK
-        self._color_index = 1
+        self.color = color
         self.loc = loc
 
     @property
@@ -30,7 +37,7 @@ class Cell(Rect):
         elif(isinstance(color, Colors)):
             self._color = color
 
-            for idx in range(Cell.COLORS_LIST):
+            for idx in range(len(Cell.COLORS_LIST)):
                 if(Cell.COLORS_LIST[idx] == color):
                     self._color_index = idx
 

@@ -20,3 +20,6 @@ class Cell_service(Service):
     def update(self, cell):
 
         self.repository.update(cell)
+
+    def place(self, cells):
+        self.repository.place(cells)

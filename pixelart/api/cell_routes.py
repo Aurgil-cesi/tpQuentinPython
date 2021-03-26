@@ -15,4 +15,6 @@ def players_route(id=None):
     if request.method == "GET":
         return cell_res.all()
     elif request.method == "POST":
-        return cell_res.update(request.get_json())
+        json = request.get_json()
+        print(json)
+        return cell_res.place(json)

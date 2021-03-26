@@ -22,6 +22,8 @@ class Grille(Rect):
     def update(self, evts):
 
         # print(self.current_reload)
+        # Gestion des événements
+        self.process_events(evts)
 
         if(self.current_frame == Grille.FRAME_RELOAD):
             print("Reload")
@@ -29,9 +31,6 @@ class Grille(Rect):
             self.current_frame = 0
         else:
             cells_data = None
-
-        # Gestion des événements
-        self.process_events(evts)
 
         # Mise à jour des éléments de la grille
         for cell in self.cells:
@@ -52,8 +51,11 @@ class Grille(Rect):
     def reload(self):
 
         # Gestion de la queue
-        for cell_model in self.queues:
-            Cell_model.update(cell_model)
+        if len(self.queues):
+            Cell_model.place(self.queues)
+            # for cell in self.queues:
+            #     Cell_model.update(cell)
+
         self.queues = []
 
         self.cells = []
@@ -62,7 +64,8 @@ class Grille(Rect):
                 self.game,
                 coords = (self.coords[0] + self.size_cell[0] * cell.x, self.coords[1] + self.size_cell[1] * cell.y),
                 size = self.size_cell,
-                loc = (cell.x, cell.y)
+                loc = (cell.x, cell.y),
+                color = cell.color
             ))
 
     def process_events(self, evts):
@@ -74,19 +77,19 @@ class Grille(Rect):
                 elif evt.key == 50:
                     Cell.COLOR_CHOOSEN = 1
                 elif evt.key == 51:
-                    Cell.COLOR_CHOOSEN = 1
+                    Cell.COLOR_CHOOSEN = 2
                 elif evt.key == 52:
-                    Cell.COLOR_CHOOSEN = 1
+                    Cell.COLOR_CHOOSEN = 3
                 elif evt.key == 53:
-                    Cell.COLOR_CHOOSEN = 1
+                    Cell.COLOR_CHOOSEN = 4
                 elif evt.key == 54:
-                    Cell.COLOR_CHOOSEN = 1
+                    Cell.COLOR_CHOOSEN = 5
                 elif evt.key == 55:
-                    Cell.COLOR_CHOOSEN = 1
+                    Cell.COLOR_CHOOSEN = 6
                 elif evt.key == 56:
-                    Cell.COLOR_CHOOSEN = 1
+                    Cell.COLOR_CHOOSEN = 7
                 elif evt.key == 57:
-                    Cell.COLOR_CHOOSEN = 1
+                    Cell.COLOR_CHOOSEN = 8
 
             if evt.type == pygame.MOUSEBUTTONDOWN:
                 pos = pygame.mouse.get_pos()
@@ -96,8 +99,12 @@ class Grille(Rect):
 
                 new_cell = None
                 for cell in self.cells:
+
+                    # Modification de couleur
                     if cell.loc == (cell_x, cell_y):
                         cell.color = Cell.COLOR_CHOOSEN
+
+                    # Nouvelle celule
                     else:
                         new_cell = Cell(
                             self.game,
@@ -105,6 +112,7 @@ class Grille(Rect):
                             size = self.size_cell,
                             loc = (cell_x, cell_y)
                         )
+                        new_cell.color = Cell.COLOR_CHOOSEN
                         
                 if new_cell:
                     self.cells.append(new_cell)

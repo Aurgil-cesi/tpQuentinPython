@@ -27,3 +27,19 @@ class Cell_resource(Resource):
         return self.server.response_class(
             status = 201
         )
+
+    def place(self, cellsJson):
+
+        cells = []
+        for cell in cellsJson:
+            cells.append(self.modelClass(
+                x = cell["x"],
+                y = cell["y"],
+                color = cell["color"]
+            ))
+
+        self.service.place(cells)
+
+        return self.server.response_class(
+            status = 201
+        )

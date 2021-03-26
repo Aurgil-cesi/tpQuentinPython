@@ -33,3 +33,13 @@ class Cell_model:
                 "content-type": "application/json"
             }
         )
+
+    @staticmethod
+    def place(cells):
+        requests.post(
+            f"{Cell_model._url}/place",
+            dumps(cells, default=lambda o: o.__dict__),
+            headers = {
+                "content-type": "application/json"
+            }
+        )
