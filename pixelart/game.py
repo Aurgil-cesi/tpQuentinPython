@@ -10,8 +10,7 @@ class Game:
         self.running = True
 
         # Création de l'écran
-        screen_size = (GRILLE_SIZE[0] * CELL_SIZE[0] + 50, GRILLE_SIZE[1] * CELL_SIZE[1] + 50)
-        # screen_size = (800, 800)
+        screen_size = (GRILLE_SIZE[0] * CELL_SIZE[0], GRILLE_SIZE[1] * CELL_SIZE[1])
         self.screen = pygame.display.set_mode(screen_size)
 
         # Tick d'update

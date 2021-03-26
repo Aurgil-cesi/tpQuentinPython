@@ -4,6 +4,7 @@ from colors import Colors
 
 class Cell(Rect):
 
+    COLOR_CHOOSEN = 1
     COLORS_LIST = [
         Colors.WHITE,
         Colors.BLACK
@@ -12,10 +13,29 @@ class Cell(Rect):
     def __init__(self, game, coords, size):
         super(Cell, self).__init__(game, coords, size)
 
-        self.color = Cell.COLORS_LIST[1]
+        self._color = Colors.BLACK
+
+    @property
+    def color(self):
+        return self._color
+
+    @color.setter
+    def color(self, color):
+        if(isinstance(color, int)):
+            self._color = Cell.COLORS_LIST[color]
+        elif(isinstance(color, Colors)):
+            self._color = color
 
     def update(self, evts):
         self.process_events(evts)
 
     def process_events(self, evts):
-        pass
+
+        for evt in evts:
+            if evt.type == pygame.MOUSEBUTTONDOWN:
+                pos = pygame.mouse.get_pos()
+
+                if(self.collidepoint(pos)):
+                    self.color = Colors.WHITE
+
+        # self.color = Cell.COLOR_CHOOSEN
