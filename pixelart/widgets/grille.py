@@ -37,7 +37,8 @@ class Grille:
                 # Affichage de la cellule
                 pygame.draw.rect(
                     self.screen,
-                    (random.randrange(256), random.randrange(256), random.randrange(256)),
+                    cell.color.value,
+                    # (random.randrange(256), random.randrange(256), random.randrange(256)),
                     cell
                 )
 
