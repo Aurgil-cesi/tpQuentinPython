@@ -6,22 +6,22 @@ from .scene import Scene
 
 class Game_scene(Scene):
 
-    def __init__(self, screen):
-        super(Game_scene, self).__init__(screen)
+    def __init__(self, game):
+        super(Game_scene, self).__init__(screen, manager)
 
         screen_size = self.screen.get_size()
-        self.balle = Balle(self.screen, (screen_size[0] / 2, screen_size[1] / 2), speed = 0.2)
+        self.balle = Balle(self.screen, (screen_size[0] / 2, screen_size[1] / 2), speed = 0.5)
         self.balle.direction = Direction.DOWN_RIGHT
 
         barre_size = (5, 64)
         self.barres = (
-            Barre(self.screen, size = barre_size, speed = 0.5), 
+            Barre(self.screen, size = barre_size, speed = 1), 
             Barre(
                 self.screen, 
                 coords = (screen_size[0] - barre_size[0], screen_size[1] - barre_size[1]), 
                 size = barre_size,
                 controls = {Direction.UP: pygame.K_o, Direction.DOWN: pygame.K_l},
-                speed = 0.5
+                speed = 1
             )
         )
 
@@ -60,4 +60,4 @@ class Game_scene(Scene):
                     elif self.balle.direction == Direction.DOWN_RIGHT:
                         self.balle.direction = Direction.DOWN_LEFT
 
-                self.balle.speed += 0.01
+                self.balle.speed *= 1.01
