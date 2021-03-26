@@ -5,7 +5,7 @@ import random
 from models.cell_model import Cell_model
 
 class Grille(Rect):
-    RELOAD = 500
+    FRAME_RELOAD = 500
 
     def __init__(self, game, size_grille, size_cell, coords = (0, 0)):
         super(Grille, self).__init__(game, coords = coords, size = (size_grille[0] * size_cell[0], size_grille[1] * size_cell[1]))
@@ -17,16 +17,16 @@ class Grille(Rect):
         
         self.reload()
 
-        self.current_reload = 0
+        self.current_frame = 0
 
     def update(self, evts):
 
         # print(self.current_reload)
 
-        if(self.current_reload == Grille.RELOAD):
+        if(self.current_frame == Grille.FRAME_RELOAD):
             print("Reload")
             self.reload()
-            self.current_reload = 0
+            self.current_frame = 0
         else:
             cells_data = None
 
@@ -47,7 +47,7 @@ class Grille(Rect):
                 cell
             )
 
-        self.current_reload += 1
+        self.current_frame += 1
 
     def reload(self):
 
