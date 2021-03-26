@@ -14,7 +14,7 @@ class Game:
         self.screen = pygame.display.set_mode(screen_size)
 
         # Tick d'update
-        self.tick = pygame.time.Clock().tick(40)
+        self.clock = pygame.time.Clock()
 
         # Chargement de la scene par défaut
         self.scene = Canvas_scene(self)
@@ -32,6 +32,8 @@ class Game:
 
         self.scene.update(evts)
         pygame.display.update()
+
+        self.clock.tick(5)
 
     def process_events(self, evts):
         for evt in evts:

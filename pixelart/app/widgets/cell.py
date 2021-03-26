@@ -4,7 +4,7 @@ from colors import Colors
 
 class Cell(Rect):
 
-    COLOR_CHOOSEN = 1
+    COLOR_CHOOSEN = 0
     COLORS_LIST = [
         Colors.WHITE,
         Colors.BLACK
@@ -36,6 +36,6 @@ class Cell(Rect):
                 pos = pygame.mouse.get_pos()
 
                 if(self.collidepoint(pos)):
-                    self.color = Colors.WHITE
+                    self.color = Cell.COLOR_CHOOSEN
 
         # self.color = Cell.COLOR_CHOOSEN

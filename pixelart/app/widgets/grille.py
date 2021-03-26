@@ -24,6 +24,8 @@ class Grille:
 
     def update(self, evts):
 
+        print("Test")
+
         # Gestion des événements
         self.process_events(evts)
 
@@ -43,4 +45,24 @@ class Grille:
                 )
 
     def process_events(self, evts):
-        pass
+        
+        for evt in evts:
+            if evt.type == pygame.KEYDOWN:
+                if evt.key == 49:
+                    Cell.COLOR_CHOOSEN = 0
+                elif evt.key == 50:
+                    Cell.COLOR_CHOOSEN = 1
+                elif evt.key == 51:
+                    Cell.COLOR_CHOOSEN = 1
+                elif evt.key == 52:
+                    Cell.COLOR_CHOOSEN = 1
+                elif evt.key == 53:
+                    Cell.COLOR_CHOOSEN = 1
+                elif evt.key == 54:
+                    Cell.COLOR_CHOOSEN = 1
+                elif evt.key == 55:
+                    Cell.COLOR_CHOOSEN = 1
+                elif evt.key == 56:
+                    Cell.COLOR_CHOOSEN = 1
+                elif evt.key == 57:
+                    Cell.COLOR_CHOOSEN = 1
